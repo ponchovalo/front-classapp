@@ -8,7 +8,7 @@
         <template>
           <v-list-item :to="{name: home}">
             <v-list-item-action>
-              <v-icon>person</v-icon>
+              <v-icon>library_add_check</v-icon>
             </v-list-item-action>
             <v-list-item-title>Evaluacion</v-list-item-title>
           </v-list-item>
@@ -17,9 +17,18 @@
         <template>
           <v-list-item :to="{name: grupo}">
             <v-list-item-action>
-              <v-icon>person</v-icon>
+              <v-icon>groups</v-icon>
             </v-list-item-action>
             <v-list-item-title>Grupos</v-list-item-title>
+          </v-list-item>
+        </template>
+
+        <template>
+          <v-list-item :to="{name: grupo}">
+            <v-list-item-action>
+              <v-icon>face</v-icon>
+            </v-list-item-action>
+            <v-list-item-title>Alumnos</v-list-item-title>
           </v-list-item>
         </template>
           
