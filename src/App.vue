@@ -5,17 +5,19 @@
       :clipped="$vuetify.breakpoint.lgAndUp"
       app>
       <v-list dense>
+
         <template>
-          <v-list-item :to="{name: home}">
+          <v-list-item :to="{ name: 'Home'}">
             <v-list-item-action>
-              <v-icon>library_add_check</v-icon>
+              <v-icon>home</v-icon>
             </v-list-item-action>
-            <v-list-item-title>Evaluacion</v-list-item-title>
+            <v-list-item-title>Inicio</v-list-item-title>
           </v-list-item>
         </template>
 
+
         <template>
-          <v-list-item :to="{name: grupo}">
+          <v-list-item :to="{name: 'Grupos'}">
             <v-list-item-action>
               <v-icon>groups</v-icon>
             </v-list-item-action>
@@ -24,11 +26,20 @@
         </template>
 
         <template>
-          <v-list-item :to="{name: grupo}">
+          <v-list-item :to="{name: 'Alumnos'}">
             <v-list-item-action>
-              <v-icon>face</v-icon>
+              <v-icon>face</v-icon> 
             </v-list-item-action>
             <v-list-item-title>Alumnos</v-list-item-title>
+          </v-list-item>
+        </template>
+
+        <template>
+          <v-list-item :to="{name: 'Evaluacion'}">
+            <v-list-item-action>
+              <v-icon>library_add_check</v-icon>
+            </v-list-item-action>
+            <v-list-item-title>Evaluación</v-list-item-title>
           </v-list-item>
         </template>
           
@@ -57,29 +68,10 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-tooltip right>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                :href="source"
-                icon
-                large
-                target="_blank"
-                v-on="on"
-              >
-                <v-icon large>mdi-code-tags</v-icon>
-              </v-btn>
-            </template>
-            <span>Source</span>
-          </v-tooltip>
-        </v-row>
+      <v-container class="fill-height" fluid>
+        <v-slide-y-transition mode="out-in">
+          <router-view/>
+        </v-slide-y-transition>
       </v-container>
     </v-main>
   </v-app>
