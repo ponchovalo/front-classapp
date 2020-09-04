@@ -22,23 +22,20 @@
                                 <div class="d-flex flex-no-wrap justify-space-between">
                                     <div>
                                         <v-card-title class="headline">Evaluacion <br> del Grupo</v-card-title>
-                                            <v-list dense rounded color="#40a8c4">
-                                                <v-list-item-group>
-                                                    <v-list-item>
-                                                        <v-list-item-title>Examen - 40%</v-list-item-title>
-                                                    </v-list-item>
-                                                    <v-list-item>
-                                                        <v-list-item-title>Trabajos - 40%</v-list-item-title>
-                                                    </v-list-item>
-                                                </v-list-item-group>
-                                            </v-list>
+                                        <v-list dense rounded color="#40a8c4">
+                                            <v-list-item-group>
+                                                <v-list-item>
+                                                    <v-list-item-title>Examen - 40%</v-list-item-title>
+                                                </v-list-item>
+                                            </v-list-item-group>
+                                        </v-list>
                                     </div>
                                     <v-avatar class="ma-4" size="130">
                                         <v-img src="../assets/evaluacion.jpg"></v-img>
                                     </v-avatar>
                                 </div>
                                 <v-card-actions>
-                                <v-btn text>Editar</v-btn>
+                                <v-btn text @click="evaluaciondialog=true">Editar</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-col>
@@ -100,41 +97,75 @@
 
             <v-row>
                 <v-dialog v-model="alumndialog" max-width="400px">
-                <v-card>
-                    <v-card-title>
-                    <span class="headline">Agregar Nuevo Alumno</span>
-                    </v-card-title>
-                    <v-card-text>
-                    <v-container> 
-                        <v-row>
-                        <v-col cols="12" sm="12" md="12">
-                            <v-text-field v-model="alumno.apellido.paterno"
-                            label="Apellido Paterno*" 
-                            required>
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="12" md="12">
-                            <v-text-field v-model="alumno.apellido.materno"
-                            label="Apellido Materno*" 
-                            required>
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="12" md="12">
-                            <v-text-field v-model="alumno.nombre"
-                            label="Nombre" 
-                            required>
-                            </v-text-field>
-                        </v-col>
-                        </v-row>
-                    </v-container>
-                    <small>*indica que el campo es requierido</small>
-                    </v-card-text>
-                    <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="red darken-1" text @click="closealumndialog">Close</v-btn>
-                    <v-btn color="teal darken-1" text @click="agregarAlumno(alumno)">Save</v-btn>
-                    </v-card-actions>
-                </v-card>
+                    <v-card>
+                        <v-card-title>
+                        <span class="headline">Agregar Nuevo Alumno</span>
+                        </v-card-title>
+                        <v-card-text>
+                        <v-container> 
+                            <v-row>
+                            <v-col cols="12" sm="12" md="12">
+                                <v-text-field v-model="alumno.apellido.paterno"
+                                label="Apellido Paterno*" 
+                                required>
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="12" md="12">
+                                <v-text-field v-model="alumno.apellido.materno"
+                                label="Apellido Materno*" 
+                                required>
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="12" md="12">
+                                <v-text-field v-model="alumno.nombre"
+                                label="Nombre" 
+                                required>
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                        </v-container>
+                        <small>*indica que el campo es requierido</small>
+                        </v-card-text>
+                        <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="red darken-1" text @click="closealumndialog">Close</v-btn>
+                        <v-btn color="teal darken-1" text @click="agregarAlumno(alumno)">Save</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-row>
+
+            <v-row>
+                <v-dialog v-model="evaluaciondialog" max-width="400px">
+                    <v-card>
+                        <v-card-title>
+                        <span class="headline">Agregar Evaluacion</span>
+                        </v-card-title>
+                        <v-card-text>
+                        <v-container> 
+                            <v-row>
+                            <v-col cols="12" sm="12" md="8">
+                                <v-text-field v-model="elemento.nombre"
+                                label="Nombre*" 
+                                required>
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="12" md="4">
+                                <v-text-field v-model="elemento.valor"
+                                label="Valor*" 
+                                required>
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                        </v-container>
+                        <small>*indica que el campo es requierido</small>
+                        </v-card-text>
+                        <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="red darken-1" text @click="evaluaciondialog=false">Close</v-btn>
+                        <v-btn color="teal darken-1" text @click="agregarElemento()">Save</v-btn>
+                        </v-card-actions>
+                    </v-card>
                 </v-dialog>
             </v-row>
         </div>
@@ -168,7 +199,10 @@ export default {
         grupo:{},
         alumnos:[],
         alumndialog: false,
+        evaluaciondialog: false,
         alumno:{apellido:{}},
+        formaEvaluar:[],
+        elemento:{},
         headers:[
             {text:'Apellido Paterno',  value:'apellido.paterno'},
             {text:'Apellido Materno', value:'apellido.materno'},
@@ -202,6 +236,21 @@ export default {
             console.log('error' + e);
         })
     },
+    agregarElemento(){
+        let nuevo = {}
+        nuevo.grupo = this.grupoId
+        nuevo.elemento = this.elemento
+        console.log(nuevo)
+        this.axios.post('grupos/neweva', nuevo)
+        .then((response) => {
+            console.log(response.data)
+            this.grupo = response.data;
+        })
+        .catch((e)=>{
+            console.log('error' + e);
+        })
+
+    },
     showalumndialog(){
         this.alumndialog = true
     },
@@ -215,6 +264,7 @@ export default {
     },
     agregarAlumno(item){
         item.grupo = this.grupo._id
+        console.log(item)
         this.axios.post('alumnos/new', item)
         .then(res => {
             this.closealumndialog();
