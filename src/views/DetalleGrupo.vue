@@ -17,59 +17,70 @@
                 </v-app-bar>
                 <v-container>
                     <v-row> 
-                        <v-col sm="12" md="4">
-                            <v-card color="#40a8c4" dark>
-                                <div class="d-flex flex-no-wrap justify-space-between">
-                                    <div>
-                                        <v-card-title class="headline">Evaluacion <br> del Grupo</v-card-title>
-                                        <v-list dense rounded color="#40a8c4">
-                                            <v-list-item-group>
-                                                <v-list-item>
-                                                    <v-list-item-title>Examen - 40%</v-list-item-title>
-                                                </v-list-item>
-                                            </v-list-item-group>
-                                        </v-list>
+                        <v-col sm="12" md="6">
+                            <v-col sm="12" md="12">
+                                <v-card color="#40a8c4" dark>
+                                    <div class="d-flex flex-no-wrap justify-space-between">
+                                        <div>
+                                            <v-card-title class="headline">Tareas <br> y Proyectos</v-card-title>
+                                        </div>
+                                        <v-avatar class="ma-4" size="130">
+                                            <v-img src="../assets/tareas.png"></v-img>
+                                        </v-avatar>
                                     </div>
-                                    <v-avatar class="ma-4" size="130">
-                                        <v-img src="../assets/evaluacion.jpg"></v-img>
-                                    </v-avatar>
-                                </div>
-                                <v-card-actions>
-                                <v-btn text @click="evaluaciondialog=true">Editar</v-btn>
-                                </v-card-actions>
-                            </v-card>
+                                    <v-card-actions >
+                                    <v-btn :to="{ name: 'TrabajosGrupo', params: { id: grupoId }}" text>Ir a Tareas Y Proyectos...</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-col>
+
+                            <v-col sm="12" md="12">
+                                <v-card color="#40a8c4" dark>
+                                    <div class="d-flex flex-no-wrap justify-space-between">
+                                        <div>
+                                            <v-card-title class="headline">Evaluacion <br> Alumnos</v-card-title>
+                                        </div>
+                                        <v-avatar class="ma-4" size="130">
+                                            <v-img src="../assets/alumno.png"></v-img>
+                                        </v-avatar>
+                                    </div>
+                                    <v-card-actions>
+                                    <v-btn text>Ir a Evaluacion...</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-col>
                         </v-col>
 
-                        <v-col sm="12" md="4">
-                            <v-card color="#40a8c4" dark>
-                                <div class="d-flex flex-no-wrap justify-space-between">
-                                    <div>
-                                        <v-card-title class="headline">Tareas <br> y Proyectos</v-card-title>
+                        <v-col sm="12" md="6"> 
+                            <v-col sm="12" md="12">
+                                <v-card color="#40a8c4" dark>
+                                    <div class="d-flex flex-no-wrap justify-space-between">
+                                        <div>
+                                            <v-card-title class="headline">Evaluacion <br> del Grupo</v-card-title>
+                                            <v-list dense rounded color="primary" class="mx-3" v-if="!(elementosEvaluacion.length === 0)">
+                                                <v-subheader>Calificacion Total</v-subheader>
+                                                <v-list-item-group color="accent">
+                                                    <v-list-item @click="editarElemento(item)"
+                                                        v-for="item in elementosEvaluacion" v-bind:key="item._id">
+                                                    <v-list-item-icon>
+                                                        <v-icon>pages</v-icon>
+                                                    </v-list-item-icon>
+                                                    <v-list-item-content>
+                                                        <v-list-item-title><span>{{item.nombre}} ----------------- {{item.valor}}</span></v-list-item-title>
+                                                    </v-list-item-content>
+                                                    </v-list-item>
+                                                </v-list-item-group>
+                                            </v-list>
+                                        </div>
+                                        <v-avatar class="ma-4" size="130">
+                                            <v-img src="../assets/evaluacion.jpg"></v-img>
+                                        </v-avatar>
                                     </div>
-                                    <v-avatar class="ma-4" size="130">
-                                        <v-img src="../assets/tareas.png"></v-img>
-                                    </v-avatar>
-                                </div>
-                                <v-card-actions>
-                                <v-btn text>Agregr Elemento</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-col>
-
-                        <v-col sm="12" md="4">
-                            <v-card color="#40a8c4" dark>
-                                <div class="d-flex flex-no-wrap justify-space-between">
-                                    <div>
-                                        <v-card-title class="headline">Evaluacion <br> Alumnos</v-card-title>
-                                    </div>
-                                    <v-avatar class="ma-4" size="130">
-                                        <v-img src="../assets/alumno.png"></v-img>
-                                    </v-avatar>
-                                </div>
-                                <v-card-actions>
-                                <v-btn text>Ir a Evaluacion...</v-btn>
-                                </v-card-actions>
-                            </v-card>
+                                    <v-card-actions>
+                                    <v-btn text @click="evaluaciondialog=true">Agregar Elemento</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-col>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -139,7 +150,7 @@
                 <v-dialog v-model="evaluaciondialog" max-width="400px">
                     <v-card>
                         <v-card-title>
-                        <span class="headline">Agregar Evaluacion</span>
+                        <span class="headline"> {{titulodialogoelemento}} </span>
                         </v-card-title>
                         <v-card-text>
                         <v-container> 
@@ -162,7 +173,7 @@
                         </v-card-text>
                         <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="red darken-1" text @click="evaluaciondialog=false">Close</v-btn>
+                        <v-btn color="red darken-1" text @click="closeevaluaciondialog">Close</v-btn>
                         <v-btn color="teal darken-1" text @click="agregarElemento()">Save</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -203,13 +214,21 @@ export default {
         alumno:{apellido:{}},
         formaEvaluar:[],
         elemento:{},
+        elementosEvaluacion:[],
         headers:[
             {text:'Apellido Paterno',  value:'apellido.paterno'},
             {text:'Apellido Materno', value:'apellido.materno'},
             {text:'Nombre', value:'nombre'},
             
-        ]
+        ],
+        indiceElemento: -1
     }
+  },
+  computed:{
+      titulodialogoelemento () {
+        return this.indiceElemento === -1 ? 'Nuevo Elemento' : 'Editar Elemento'
+      },
+
   },
   created(){
     this.obtenerDatos()
@@ -219,8 +238,8 @@ export default {
     obtenerDatos(){
         this.axios.get('grupos/'+this.grupoId)
         .then((response) => {
-            console.log(response.data)
             this.grupo = response.data;
+            this.elementosEvaluacion = response.data.formaevaluar
         })
         .catch((e)=>{
             console.log('error' + e);
@@ -229,26 +248,38 @@ export default {
     obtenerAlumnos(){
         this.axios.get('alumnos/'+this.grupoId)
         .then((response) => {
-            console.log(response.data)
             this.alumnos = response.data;
         })
         .catch((e)=>{
             console.log('error' + e);
         })
     },
+    editarElemento(item){
+        this.indiceElemento = this.elementosEvaluacion.indexOf(item)
+        console.log(this.indiceElemento)
+        this.elemento.nombre = item.nombre
+        this.elemento.valor = item.valor
+        this.evaluaciondialog = true;
+
+    },
     agregarElemento(){
-        let nuevo = {}
-        nuevo.grupo = this.grupoId
-        nuevo.elemento = this.elemento
-        console.log(nuevo)
-        this.axios.post('grupos/neweva', nuevo)
-        .then((response) => {
-            console.log(response.data)
-            this.grupo = response.data;
-        })
-        .catch((e)=>{
-            console.log('error' + e);
-        })
+        if(this.indiceElemento === -1){
+            let nuevo = {}
+            nuevo.grupo = this.grupoId
+            nuevo.elemento = this.elemento
+            this.axios.post('grupos/neweva', nuevo)
+            .then((response) => {
+                console.log(response.data)
+                this.obtenerDatos()
+                this.closeevaluaciondialog()
+            })
+            .catch((e)=>{
+                console.log('error' + e);
+            })
+        }else {
+            console.log("vas a editar")
+        }
+        
 
     },
     showalumndialog(){
@@ -258,9 +289,17 @@ export default {
         this.alumndialog = false
         this.limpiaralumndialog()
     },
+    closeevaluaciondialog(){
+        this.evaluaciondialog = false
+        this.limpiarevaluaciondialog()
+    },
     limpiaralumndialog(){
         this.alumno.nombre='',
         this.alumno.apellido={}
+    },
+    limpiarevaluaciondialog(){
+        this.elemento = {}
+        this.indiceElemento = -1
     },
     agregarAlumno(item){
         item.grupo = this.grupo._id

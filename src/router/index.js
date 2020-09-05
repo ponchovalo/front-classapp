@@ -26,12 +26,18 @@ const routes = [{
         name: 'Evaluacion',
         component: () =>
             import ( /* webpackChunkName: "Evaluacion" */ '../views/Evaluacion.vue')
-    }, ,
+    },
     {
         path: '/detallegrupo/:id',
         name: 'DetalleGrupo',
         component: () =>
             import ( /* webpackChunkName: "DetalleGrupo" */ '../views/DetalleGrupo.vue')
+    },
+    {
+        path: '/trabajosgrupo/:id',
+        name: 'TrabajosGrupo',
+        component: () =>
+            import ( /* webpackChunkName: "DetalleGrupo" */ '../views/TrabajosGrupo.vue')
     }
 ]
 
