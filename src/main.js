@@ -7,8 +7,10 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import moment from 'vue-moment'
 
 Vue.use(VueAxios, axios)
+Vue.use(moment)
 
 // Agregamos la URL base de nuestra API
 axios.defaults.baseURL = 'http://localhost:3000/api';
